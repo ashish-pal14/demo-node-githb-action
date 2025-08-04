@@ -35,9 +35,9 @@ jobs:
 
     - name: Push Docker image
       run: docker push ${{ secrets.DOCKER_USERNAME }}/ci-cd-node-app
+   
     - name: Building iamge & Running
-      with:
-        scripts:
-          docker pull ${{ secrets.DOCKER_USERNAME }}/ci-cd-node-app:latest
-          docker stop cicd || true && docker rm cicd || true
-          docker run -d --name cicd -p 3000:3000 ${{ secrets.DOCKER_USERNAME }}/ci-cd-node-app:latest
+      run:   
+        docker pull ${{ secrets.DOCKER_USERNAME }}/ci-cd-node-app:latest
+        docker stop cicd || true && docker rm cicd || true
+        docker run -d --name cicd -p 3000:3000 ${{ secrets.DOCKER_USERNAME }}/ci-cd-node-app:latest
